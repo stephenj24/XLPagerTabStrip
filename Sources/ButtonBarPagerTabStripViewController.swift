@@ -322,18 +322,39 @@ open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, Pa
         let childController = viewControllers[indexPath.item] as! IndicatorInfoProvider // swiftlint:disable:this force_cast
         let indicatorInfo = childController.indicatorInfo(for: self)
 
-        // EDIT BY ME
-
-        cell.label.text = indicatorInfo.title
+        
         cell.label.font = settings.style.buttonBarItemFont
         cell.label.textColor = settings.style.buttonBarItemTitleColor ?? cell.label.textColor
         cell.contentView.backgroundColor = settings.style.buttonBarItemBackgroundColor ?? cell.contentView.backgroundColor
         cell.backgroundColor = settings.style.buttonBarItemBackgroundColor ?? cell.backgroundColor
-        if let image = indicatorInfo.image {
-            cell.imageView.image = image
-        }
-        if let highlightedImage = indicatorInfo.highlightedImage {
-            cell.imageView.highlightedImage = highlightedImage
+        
+
+        // Custom Here
+        if indicatorInfo.iconBesideText{
+            let imageAttachment =  NSTextAttachment()
+            imageAttachment.image = indicatorInfo.image
+            //Set bound to reposition
+            let imageOffsetY:CGFloat = -5.0;
+            imageAttachment.bounds = CGRect(x: 0, y: imageOffsetY, width: imageAttachment.image!.size.width, height: imageAttachment.image!.size.height)
+            //Create string with attachment
+            let attachmentString = NSAttributedString(attachment: imageAttachment)
+            //Initialize mutable string
+            let completeText = NSMutableAttributedString(string: "")
+            //Add image to mutable string
+            completeText.append(attachmentString)
+            //Add your text to mutable string
+            let  textAfterIcon = NSMutableAttributedString(string: indicatorInfo.title!)
+            completeText.append(textAfterIcon)
+            cell.label.attributedText = completeText
+        }else{
+            cell.label.text = indicatorInfo.title
+            
+            if let image = indicatorInfo.image {
+                cell.imageView.image = image
+            }
+            if let highlightedImage = indicatorInfo.highlightedImage {
+                cell.imageView.highlightedImage = highlightedImage
+            }
         }
 
         configureCell(cell, indicatorInfo: indicatorInfo)

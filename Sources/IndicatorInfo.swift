@@ -30,9 +30,17 @@ public struct IndicatorInfo {
     public var image: UIImage?
     public var highlightedImage: UIImage?
     public var userInfo: Any?
+    public var iconBesideText: Bool = false // Custom
     
     public init(title: String?) {
         self.title = title
+    }
+    
+    // Custom Here
+    public init(title: String?, image: UIImage?, iconBesideText : Bool = false) {
+        self.title = title
+        self.image = image
+        self.iconBesideText = iconBesideText
     }
     
     public init(image: UIImage?, highlightedImage: UIImage? = nil, userInfo: Any? = nil) {
