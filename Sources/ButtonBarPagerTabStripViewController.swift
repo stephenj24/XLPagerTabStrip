@@ -332,7 +332,7 @@ open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, Pa
         // Custom Here
         if indicatorInfo.iconBesideText{
             let imageAttachment =  NSTextAttachment()
-            imageAttachment.image = indicatorInfo.image
+            imageAttachment.image = indicatorInfo.image?.withRenderingMode(.alwaysTemplate)
             //Set bound to reposition
             let imageOffsetY:CGFloat = -5.0;
             imageAttachment.bounds = CGRect(x: 0, y: imageOffsetY, width: imageAttachment.image!.size.width, height: imageAttachment.image!.size.height)
@@ -343,7 +343,7 @@ open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, Pa
             //Add image to mutable string
             completeText.append(attachmentString)
             //Add your text to mutable string
-            let  textAfterIcon = NSMutableAttributedString(string: indicatorInfo.title!)
+            let  textAfterIcon = NSMutableAttributedString(string: " \(indicatorInfo.title!)")
             completeText.append(textAfterIcon)
             cell.label.attributedText = completeText
         }else{
