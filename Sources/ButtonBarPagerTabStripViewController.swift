@@ -339,7 +339,7 @@ open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, Pa
             //Create string with attachment
             let attachmentString = NSAttributedString(attachment: imageAttachment)
             //Initialize mutable string
-            let completeText = NSMutableAttributedString(string: "")
+            let completeText = NSMutableAttributedString(string: " ")
             //Add image to mutable string
             completeText.append(attachmentString)
             //Add your text to mutable string
